@@ -1,0 +1,19 @@
+package com.assignment.analytics.repo;
+
+import com.assignment.analytics.domain.ActivityType;
+import com.assignment.analytics.domain.Transaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.UUID;
+
+public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
+
+    List<Transaction> findByCustomerIdOrderByCreatedAtDesc(UUID customerId);
+
+    Page<Transaction> findByCustomerId(UUID customerId, Pageable pageable);
+
+    Page<Transaction> findByCustomerIdAndActivityType(UUID customerId, ActivityType activityType, Pageable pageable);
+}
